@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  background: #fff;
+  padding: 0 15px;
+
+  .flexWrapper {
+    gap: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    img {
+      cursor: pointer;
+    }
+
+    .actions {
+      display: flex;
+      gap: 16px;
+
+      .button {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border-radius: 50%;
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.link {
+  width: 100%;
+
+  :hover {
+    background: #fff6;
+  }
+}
+
+.fileCard {
+  border-radius: 0 !important;
+
+  .cardTitle {
+    display: inline-block;
+    margin: 0;
+  }
+
+  .breadcrumbs {
+    color: #00000045;
+    margin-bottom: 10px;
+  }
+
+  :global {
+    .ant-card-head {
+      border-bottom: 0;
+    }
+    .ant-card-head-title {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .ant-card-body {
+      padding: 0 24px;
+
+      p {
+        margin: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

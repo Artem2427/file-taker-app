@@ -1,19 +1,64 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom/client"
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom"
+import { ConfigProvider, Layout } from "antd"
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import Home from "./pages/Home"
+import Login from "./pages/Login"
+import Header from "./components/Header"
+import Sidebar from "./components/Sidebar"
+import SearchResult from "./components/SearchResult"
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+import styles from "./styles.module.scss"
+
+const { Content } = Layout
+
+const ConfigProviderWrapper = () => {
+  return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: "#6a28ea",
+          borderRadius: 20,
+        },
+      }}
+    >
+      <Outlet />
+    </ConfigProvider>
+  )
+}
+
+const AppLayout = () => (
+  <Layout className={styles.container}>
+    <Sidebar />
+    <Content>
+      <Header />
+      <SearchResult />
+      <Outlet />
+    </Content>
+  </Layout>
+)
+
+const router = createBrowserRouter([
+  {
+    element: <ConfigProviderWrapper />,
+    children: [
+      {
+        element: <AppLayout />,
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+        ],
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+    ],
+  },
+])
+
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
+
+root.render(<RouterProvider router={router} />)

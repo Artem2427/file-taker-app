@@ -1,0 +1,9 @@
+.homePage {
+  flex: 1;
+}
+
+:global {
+  .ant-menu {
+    height: 100%;
+  }
+}

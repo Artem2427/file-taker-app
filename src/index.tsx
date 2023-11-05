@@ -27,16 +27,18 @@ const ConfigProviderWrapper = () => {
   )
 }
 
-const AppLayout = () => (
-  <Layout className={styles.container}>
-    <Sidebar />
-    <Content>
-      <Header />
-      <SearchResult />
-      <Outlet />
-    </Content>
-  </Layout>
-)
+const AppLayout = () => {
+  return (
+    <Layout className={styles.container}>
+      <Sidebar />
+      <Content>
+        <Header />
+        <SearchResult />
+        <Outlet />
+      </Content>
+    </Layout>
+  )
+}
 
 const router = createBrowserRouter([
   {

@@ -14,9 +14,10 @@
     margin: 0;
   }
 
-  .breadcrumbs {
-    color: #00000045;
-    margin-bottom: 10px;
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
 
   :global {
@@ -30,6 +31,8 @@
     }
     .ant-card-body {
       padding: 0 24px;
+      display: flex;
+      flex-direction: row;
 
       p {
         margin: 0;

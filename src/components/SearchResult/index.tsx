@@ -1,53 +1,60 @@
-import { Button, Tabs, TabsProps, Typography } from "antd"
-import { DownloadOutlined, FilePdfOutlined } from "@ant-design/icons"
+import { Spin, Tabs, TabsProps, Typography } from "antd"
 
-import mockSearchResultData from "src/mock-data/mockSearchResultData"
+import useFilesStore from "src/store/files"
+import FileCardList from "../FileCardList"
 
 import styles from "./styles.module.scss"
-import FileCardList from "../FileCardList"
+import noData from "src/assets/icons/no-data.svg"
 
 const items: TabsProps["items"] = [
   {
     key: "1",
-    label: "Tab 1",
-    children: "Content of Tab Pane 1",
+    label: "All",
+    // children: "Content of Tab Pane 1",
   },
   {
     key: "2",
-    label: "Tab 2",
-    children: "Content of Tab Pane 2",
+    label: "Steps",
+    // children: "Content of Tab Pane 2",
   },
   {
     key: "3",
-    label: "Tab 3",
-    children: "Content of Tab Pane 3",
+    label: "Test questions",
+    // children: "Content of Tab Pane 3",
+  },
+  {
+    key: "4",
+    label: "Files",
+    // children: "Content of Tab Pane 3",
   },
 ]
 
 const SearchResult = () => {
-  const onChange = (key: string) => {
-    console.log(key)
-  }
+  const { data, searchValue, isLoading } = useFilesStore()
+  const totalFilesLength = data.files?.length + data.videos?.length
 
-  return (
+  return isLoading ? (
+    <div className="spin">
+      <Spin />
+    </div>
+  ) : (
     <div className={styles.searchResult}>
-      <div className={styles.header}>
-        <Typography.Title level={2}>
-          "{mockSearchResultData.resultTitle}"
-        </Typography.Title>
-        <Typography>Found {12} search results</Typography>
-      </div>
-      <div className={styles.foundIn}>
-        <span>Found in:</span>
+      <Typography.Title level={2}>Home</Typography.Title>
+      <Tabs defaultActiveKey="1" items={items} />
+      {data.files?.length > 0 || data.videos?.length > 0 ? (
         <div>
-          <Button shape="round" icon={<FilePdfOutlined />}>
-            {"Cars.xls"}
-            <DownloadOutlined />
-          </Button>
+          <div className={styles.header}>
+            <Typography.Title level={2}>"{searchValue}"</Typography.Title>
+            <Typography>Found {totalFilesLength} search results</Typography>
+          </div>
+          <FileCardList />
         </div>
-      </div>
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
-      <FileCardList />
+      ) : (
+        <div className={styles.noData}>
+          <Typography.Title level={4}>No data found.</Typography.Title>
+          <img src={noData} alt="No data" />
+        </div>
+      )}
     </div>
   )
 }
